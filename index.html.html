@@ -1,0 +1,1696 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ana Clavelyn | Personal Digital Space & Portfolio</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Press+Start+2P&family=Space+Grotesk:wght@500;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            DEFAULT: '#101A35',
+                            dark: '#0A1124',
+                            light: '#182548',
+                            card: '#132042'
+                        },
+                        pink: {
+                            DEFAULT: '#FF6FAE',
+                            glow: '#FF8FBE',
+                            dark: '#E05593',
+                            soft: '#FFA3CB'
+                        },
+                        grey: {
+                            DEFAULT: '#B8B8C2',
+                            light: '#E1E1E8',
+                            dark: '#6C6C7C'
+                        }
+                    },
+                    fontFamily: {
+                        pixel: ['"Press Start 2P"', 'monospace'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        heading: ['"Space Grotesk"', 'sans-serif'],
+                        handwritten: ['"Caveat"', 'cursive']
+                    },
+                    animation: {
+                        'float': 'float 4s ease-in-out infinite',
+                        'float-delayed': 'float 4s ease-in-out 2s infinite',
+                        'pulse-glow': 'pulseGlow 2s infinite',
+                        'scanline': 'scanline 3.5s linear infinite',
+                        'equalizer': 'equalizer 0.8s ease-in-out infinite alternate',
+                        'flicker': 'flicker 4s infinite',
+                        'star-twinkle': 'twinkle 3s ease-in-out infinite',
+                        'spin-slow': 'spin 12s linear infinite'
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+                            '50%': { transform: 'translateY(-10px) rotate(2deg)' }
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { opacity: 0.8, boxShadow: '0 0 15px rgba(255, 111, 174, 0.4)' },
+                            '50%': { opacity: 1, boxShadow: '0 0 25px rgba(255, 111, 174, 0.8)' }
+                        },
+                        scanline: {
+                            '0%': { transform: 'translateY(-100%)' },
+                            '100%': { transform: 'translateY(1000%)' }
+                        },
+                        equalizer: {
+                            '0%': { height: '20%' },
+                            '100%': { height: '100%' }
+                        },
+                        flicker: {
+                            '0%, 100%': { opacity: 1 },
+                            '50%': { opacity: 0.7 },
+                            '55%': { opacity: 1 },
+                            '85%': { opacity: 0.85 }
+                        },
+                        twinkle: {
+                            '0%, 100%': { opacity: 0.2, transform: 'scale(0.8)' },
+                            '50%': { opacity: 0.9, transform: 'scale(1.2)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .bg-pixel-grid {
+            background-color: #0A1124;
+            background-image: 
+                radial-gradient(rgba(255, 111, 174, 0.15) 1px, transparent 1px),
+                radial-gradient(rgba(184, 184, 194, 0.08) 1px, transparent 1px);
+            background-size: 24px 24px;
+            background-position: 0 0, 12px 12px;
+        }
+
+        .ambient-glow-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0A1124;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #FF6FAE;
+            border-radius: 5px;
+            border: 2px solid #0A1124;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #FFA3CB;
+        }
+
+        .pink-glow-text {
+            text-shadow: 0 0 12px rgba(255, 111, 174, 0.6);
+        }
+
+        .window-bar {
+            background: linear-gradient(90deg, #FF6FAE 0%, #101A35 100%);
+        }
+
+        .tape-effect {
+            position: relative;
+        }
+        .tape-effect::before {
+            content: '';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%) rotate(-2deg);
+            width: 90px;
+            height: 24px;
+            background: rgba(255, 111, 174, 0.4);
+            backdrop-filter: blur(4px);
+            border: 1px dashed rgba(255, 255, 255, 0.5);
+            z-index: 20;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+
+        .reveal-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .scanlines {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            background: linear-gradient(
+                to bottom,
+                rgba(255,255,255,0),
+                rgba(255,255,255,0) 50%,
+                rgba(0, 0, 0, 0.12) 50%,
+                rgba(0, 0, 0, 0.12)
+            );
+            background-size: 100% 4px;
+            z-index: 90;
+            opacity: 0.4;
+        }
+
+        .id-scan-line {
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #FF6FAE, transparent);
+            box-shadow: 0 0 8px #FF6FAE;
+            animation: scanline 3.5s ease-in-out infinite;
+        }
+
+        .project-card {
+            transition: all 0.4s ease-in-out;
+        }
+        .project-card.is-hidden {
+            display: none !important;
+            opacity: 0;
+            transform: scale(0.9);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, ::before, ::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+            .reveal-on-scroll {
+                opacity: 1 !important;
+                transform: none !important;
+            }
+            #custom-cursor {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-pixel-grid text-white font-sans antialiased selection:bg-pink selection:text-navy-dark min-h-screen overflow-x-hidden relative">
+
+    <div id="custom-cursor" class="pointer-events-none fixed top-0 left-0 z-[9999] hidden md:block transition-transform duration-75 ease-out translate-x-[-50%] translate-y-[-50%]">
+        <div id="cursor-dot" class="w-5 h-5 bg-pink/80 rounded-full border border-white shadow-[0_0_12px_#FF6FAE] transition-all duration-200 flex items-center justify-center">
+            <span class="text-[9px] text-white select-none">✨</span>
+        </div>
+    </div>
+
+    <!-- PRELOADER SCREEN -->
+    <div id="preloader" class="fixed inset-0 z-[100] bg-navy-dark flex flex-col items-center justify-center p-4 transition-opacity duration-500">
+        <div class="space-y-4 text-center max-w-sm w-full bg-navy-card/80 p-6 rounded-3xl border border-pink/40 shadow-[0_0_40px_rgba(255,111,174,0.3)]">
+            <div class="flex items-center justify-center gap-2">
+                <div class="w-3 h-3 rounded-full bg-pink animate-ping"></div>
+                <span class="font-pixel text-pink text-xs sm:text-sm tracking-widest">ANA.EXE</span>
+            </div>
+            <p class="font-mono text-xs text-grey-light">INITIALIZING DIGITAL WORLD...</p>
+            
+            <div class="w-full bg-navy-dark border border-pink/40 h-4 rounded-full overflow-hidden p-0.5 relative">
+                <div id="loader-bar" class="bg-gradient-to-r from-pink-soft to-pink h-full rounded-full w-0 transition-all duration-150"></div>
+            </div>
+            
+            <div class="flex items-center justify-between text-[11px] font-mono text-grey">
+                <span id="loader-percent">0%</span>
+                <span class="text-green-400 flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span> SYSTEM ONLINE
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Background Ambient Glows -->
+    <div class="scanlines opacity-30 hidden md:block"></div>
+    <div class="ambient-glow-blob w-96 h-96 bg-pink/10 top-10 left-[-100px]"></div>
+    <div class="ambient-glow-blob w-96 h-96 bg-purple-600/10 top-[40%] right-[-100px]"></div>
+
+    <header class="fixed top-0 left-0 right-0 z-50 px-4 py-3 transition-all duration-300" id="navbar">
+        <div class="max-w-6xl mx-auto bg-navy-card/85 backdrop-blur-md border border-pink/30 rounded-full px-5 py-2.5 shadow-[0_0_20px_rgba(255,111,174,0.15)] flex items-center justify-between">
+            
+            <!-- Logo -->
+            <a href="#home" class="flex items-center gap-2 group">
+                <div class="w-3 h-3 rounded-full bg-pink animate-pulse"></div>
+                <span class="font-pixel text-xs sm:text-sm text-pink group-hover:text-white transition-colors tracking-widest">
+                    ANA.CLAVELYN
+                </span>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden md:flex items-center gap-5 text-xs tracking-wider font-bold">
+                <a href="#home" class="hover:text-pink transition-colors">HOME</a>
+                <a href="#about" class="hover:text-pink transition-colors">ABOUT</a>
+                <a href="#corner" class="hover:text-pink transition-colors text-pink-soft">ANA'S CORNER ♡</a>
+                <a href="#skills" class="hover:text-pink transition-colors">SKILLS</a>
+                <a href="#works" class="hover:text-pink transition-colors">WORKS</a>
+                <a href="#certificates" class="hover:text-pink transition-colors">CERTIFICATES</a>
+                <a href="#contact" class="hover:text-pink transition-colors">CONTACT</a>
+            </nav>
+
+            <!-- Status Indicator -->
+            <button onclick="openTerminalModal()" class="hidden sm:flex items-center gap-2 bg-navy-dark/70 px-3 py-1 rounded-full border border-pink/30 text-[10px] font-mono text-pink hover:bg-pink/20 transition-all cursor-pointer">
+                <span class="w-2 h-2 rounded-full bg-green-400 animate-ping"></span>
+                <span>SYSTEM ONLINE</span>
+            </button>
+
+            <!-- Mobile Hamburger Button -->
+            <button id="menu-btn" aria-label="Toggle navigation menu" class="md:hidden text-pink hover:text-white focus:outline-none p-1">
+                <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Navigation Drawer -->
+        <div id="mobile-menu" class="hidden md:hidden max-w-6xl mx-auto mt-2 bg-navy-card/95 backdrop-blur-xl border border-pink/40 rounded-2xl p-5 text-center flex flex-col gap-3 text-sm font-bold shadow-2xl">
+            <a href="#home" class="mobile-link hover:text-pink py-2 border-b border-navy-light/50">HOME</a>
+            <a href="#about" class="mobile-link hover:text-pink py-2 border-b border-navy-light/50">ABOUT</a>
+            <a href="#corner" class="mobile-link text-pink py-2 border-b border-navy-light/50">ANA'S CORNER ♡</a>
+            <a href="#skills" class="mobile-link hover:text-pink py-2 border-b border-navy-light/50">SKILLS</a>
+            <a href="#works" class="mobile-link hover:text-pink py-2 border-b border-navy-light/50">WORKS</a>
+            <a href="#certificates" class="mobile-link hover:text-pink py-2 border-b border-navy-light/50">CERTIFICATES</a>
+            <a href="#contact" class="mobile-link hover:text-pink py-2">CONTACT</a>
+            <div onclick="openTerminalModal()" class="pt-2 flex justify-center items-center gap-2 text-xs font-mono text-pink cursor-pointer">
+                <span class="w-2 h-2 rounded-full bg-green-400"></span>
+                <span>SYSTEM ONLINE (CLICK ME)</span>
+            </div>
+        </div>
+    </header>
+
+    <section id="home" class="relative min-h-screen pt-28 pb-16 px-4 flex items-center justify-center overflow-hidden">
+        
+        <!-- Background Decorative Assets -->
+        <img src="https://cp.senxc.my.id/c/009d6321c.png" alt="Pixel Star" class="parallax-element absolute top-24 left-6 md:left-20 w-10 md:w-16 opacity-80 animate-float cursor-pointer" onclick="triggerToast('YOU FOUND ME! 🌸')">
+        <img src="https://cp.senxc.my.id/c/21a9eb0cd.png" alt="Pixel Heart" class="parallax-element absolute bottom-16 right-6 md:right-24 w-12 md:w-20 opacity-80 animate-float-delayed cursor-pointer" onclick="triggerToast('CREATIVITY DETECTED ♡')">
+        <img src="https://cp.senxc.my.id/c/f8ff88a54.png" alt="Pink Decoration" class="parallax-element absolute top-1/3 right-4 md:right-12 w-16 md:w-28 opacity-40 blur-xs pointer-events-none">
+        <img src="https://cp.senxc.my.id/c/88b6b3fcc.png" alt="Navy Scrapbook Element" class="parallax-element absolute bottom-20 left-8 w-14 md:w-24 opacity-50 pointer-events-none">
+
+        <div class="max-w-6xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+            
+            <!-- Left Column: Hero Text & Badges -->
+            <div class="lg:col-span-7 space-y-6 text-center lg:text-left reveal-on-scroll">
+                
+                <div class="flex flex-wrap justify-center lg:justify-start gap-2 text-xs font-mono">
+                    <button onclick="handleAnaBadgeClick()" class="bg-pink/15 text-pink border border-pink/40 px-3 py-1 rounded-full backdrop-blur-sm flex items-center gap-1.5 shadow-[0_0_10px_rgba(255,111,174,0.2)] hover:bg-pink/30 transition-all cursor-pointer group" title="Click 3x to unlock secret profile!">
+                        <i class="fa-solid fa-terminal text-[10px]"></i> <span id="ana-exe-tag">ANA.EXE</span> <span class="text-[9px] text-pink-soft opacity-60 group-hover:opacity-100">🔒</span>
+                    </button>
+                    <span class="bg-navy-light/80 text-grey-light border border-grey/30 px-3 py-1 rounded-full flex items-center gap-1.5">
+                        <i class="fa-solid fa-bolt text-pink"></i> CREATIVE MODE: ON
+                    </span>
+                    <span class="bg-navy-light/80 text-grey-light border border-grey/30 px-3 py-1 rounded-full hidden sm:inline-flex items-center gap-1.5">
+                        <i class="fa-solid fa-spinner animate-spin text-pink"></i> IDEAS LOADING...
+                    </span>
+                </div>
+
+                <div>
+                    <h1 class="font-heading font-extrabold text-4xl sm:text-6xl lg:text-7xl tracking-tight text-white leading-tight">
+                        ANA <span class="text-transparent bg-clip-text bg-gradient-to-r from-pink via-pink-soft to-purple-400 pink-glow-text">CLAVELYN</span>
+                    </h1>
+                    
+                    <div class="mt-3 inline-block min-h-[32px]">
+                        <p id="typed-subtitle" class="font-mono text-sm sm:text-lg text-pink font-semibold border-b-2 border-pink/60 pb-1">
+                            <!-- Typing animation target -->
+                        </p>
+                    </div>
+                </div>
+
+                <p class="text-grey text-base sm:text-lg max-w-xl mx-auto lg:mx-0 font-normal leading-relaxed">
+                    Turning ideas into interactive experiences, <span class="text-white font-medium underline decoration-pink decoration-2 underline-offset-4">one pixel at a time</span>.
+                </p>
+
+                <div class="pt-4 flex flex-wrap justify-center lg:justify-start gap-4">
+                    <a href="#works" class="group relative inline-flex items-center justify-center px-7 py-3.5 text-xs font-pixel text-navy-dark bg-pink hover:bg-pink-soft rounded-xl transition-all duration-300 shadow-[0_0_20px_rgba(255,111,174,0.5)] hover:scale-105 active:scale-95">
+                        <span>VIEW MY WORKS</span>
+                        <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                    
+                    <a href="#corner" class="inline-flex items-center justify-center px-7 py-3.5 text-xs font-pixel text-pink bg-navy-card/90 border-2 border-pink/50 hover:border-pink hover:bg-navy-light rounded-xl transition-all duration-300 hover:scale-105 active:scale-95">
+                        <span>ANA'S CORNER ♡</span>
+                    </a>
+                </div>
+
+                <div class="pt-2 text-xs font-mono text-grey-dark hover:text-pink transition-colors cursor-pointer select-none flex items-center justify-center lg:justify-start gap-2" onclick="triggerEasterEgg()">
+                    <span>✨ click me for a secret message</span>
+                    <span id="secret-toast" class="hidden bg-pink/20 text-pink px-2.5 py-0.5 rounded border border-pink/30 animate-pulse"></span>
+                </div>
+            </div>
+
+            <!-- Profile Image Polaroid Container -->
+            <div class="lg:col-span-5 flex justify-center reveal-on-scroll">
+                <div class="relative w-72 sm:w-80 lg:w-96">
+                    <img src="https://cp.senxc.my.id/c/2a1780880.png" alt="Pixel Decor" class="absolute -top-6 -left-6 w-14 z-30 animate-pulse cursor-pointer" onclick="triggerToast('STILL AWAKE? ☕')">
+                    <img src="https://cp.senxc.my.id/c/389bcff36.png" alt="Pixel Sparkle" class="absolute -bottom-4 -right-4 w-16 z-30 pointer-events-none">
+                    <img src="https://cp.senxc.my.id/c/9050e8fa2.png" alt="Pink Bow Sticker" class="absolute top-2 -right-6 w-16 z-30 transform rotate-12 hover:rotate-45 transition-transform duration-300 cursor-pointer" onclick="triggerToast('KAWAII OVERLOAD 🌸')">
+                    
+                    <div class="bg-navy-card border-2 border-pink/60 rounded-3xl p-4 shadow-[0_0_30px_rgba(255,111,174,0.25)] backdrop-blur-lg transform rotate-1 hover:rotate-0 transition-all duration-500 hover:shadow-[0_0_40px_rgba(255,111,174,0.4)]">
+                        <div class="window-bar rounded-t-xl px-3 py-1.5 flex items-center justify-between mb-3 text-xs font-mono text-white">
+                            <span class="flex items-center gap-1.5 font-bold"><i class="fa-solid fa-heart text-pink-soft"></i> ana_avatar.jpg</span>
+                            <div class="flex gap-1.5">
+                                <span class="w-2.5 h-2.5 rounded-full bg-pink cursor-pointer" onclick="triggerToast('PINK IS LIFE 💗')"></span>
+                                <span class="w-2.5 h-2.5 rounded-full bg-yellow-400"></span>
+                                <span class="w-2.5 h-2.5 rounded-full bg-green-400"></span>
+                            </div>
+                        </div>
+
+                        <div class="relative rounded-2xl overflow-hidden border border-pink/30 group">
+                            <img src="https://cp.senxc.my.id/c/ff9c6ba93.jpg" alt="Ana Clavelyn Profile" class="w-full h-80 object-cover object-top group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-gradient-to-t from-navy-dark via-transparent to-transparent opacity-60"></div>
+                            
+                            <div class="absolute bottom-3 left-3 right-3 bg-navy-dark/90 backdrop-blur-md p-2.5 rounded-xl border border-pink/40 flex items-center justify-between text-xs font-mono">
+                                <div>
+                                    <p class="text-pink font-bold">ANA CLAVELYN</p>
+                                    <p class="text-[10px] text-grey">Creative Digital Space</p>
+                                </div>
+                                <span class="text-lg">🌸</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="about" class="py-20 px-4 relative">
+        <div class="max-w-6xl mx-auto space-y-12">
+            
+            <div class="text-center space-y-2 reveal-on-scroll">
+                <div class="inline-block bg-pink/15 text-pink border border-pink/30 font-mono text-xs px-3 py-1 rounded-full uppercase tracking-widest">
+                    Who is Ana?
+                </div>
+                <h2 class="font-heading font-bold text-3xl sm:text-5xl text-white">
+                    ABOUT <span class="text-pink pink-glow-text">ANA</span>
+                </h2>
+                <div class="w-20 h-1 bg-pink mx-auto rounded-full"></div>
+            </div>
+
+            <div class="bg-navy-card/90 border border-pink/30 rounded-3xl p-6 sm:p-8 backdrop-blur-md shadow-xl relative reveal-on-scroll tape-effect">
+                <img src="https://cp.senxc.my.id/c/1839add3e.png" alt="Navy Sticker" class="absolute -top-5 right-10 w-14 opacity-75 pointer-events-none">
+                
+                <p class="text-base sm:text-xl text-grey-light font-normal leading-relaxed text-center max-w-3xl mx-auto">
+                    Hi, I'm <span class="text-pink font-semibold">Ana</span>. A curious creator who enjoys turning complicated problems into simple, creative solutions. I love brainstorming, building things, and keeping conversations straight to the point.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 reveal-on-scroll">
+                <div class="bg-navy-card border border-pink/20 hover:border-pink/70 rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 shadow-lg group">
+                    <div class="w-10 h-10 rounded-xl bg-pink/20 text-pink flex items-center justify-center text-lg mb-4 group-hover:scale-110 transition-transform">
+                        ⚡
+                    </div>
+                    <h3 class="font-heading font-bold text-lg text-white mb-2">ADAPTIF</h3>
+                    <p class="text-grey text-sm leading-relaxed">
+                        Quick to adjust and comfortable exploring new things.
+                    </p>
+                </div>
+
+                <div class="bg-navy-card border border-pink/20 hover:border-pink/70 rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 shadow-lg group">
+                    <div class="w-10 h-10 rounded-xl bg-pink/20 text-pink flex items-center justify-center text-lg mb-4 group-hover:scale-110 transition-transform">
+                        💡
+                    </div>
+                    <h3 class="font-heading font-bold text-lg text-white mb-2">SERBA TAHU, TAPI SANTAI</h3>
+                    <p class="text-grey text-sm leading-relaxed">
+                        Curious about almost everything, without making things unnecessarily complicated.
+                    </p>
+                </div>
+
+                <div class="bg-navy-card border border-pink/20 hover:border-pink/70 rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 shadow-lg group">
+                    <div class="w-10 h-10 rounded-xl bg-pink/20 text-pink flex items-center justify-center text-lg mb-4 group-hover:scale-110 transition-transform">
+                        🌐
+                    </div>
+                    <h3 class="font-heading font-bold text-lg text-white mb-2">STANDBY 24/7</h3>
+                    <p class="text-grey text-sm leading-relaxed">
+                        Always ready when there's something interesting to solve.
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6 reveal-on-scroll">
+                <div class="md:col-span-7 bg-navy-card/90 border border-pink/30 rounded-3xl p-6 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-2 mb-4">
+                            <span class="text-xl">✨</span>
+                            <h3 class="font-heading font-bold text-lg text-pink">Things I Like</h3>
+                        </div>
+                        <ul class="space-y-3 font-medium text-sm sm:text-base text-grey-light">
+                            <li class="flex items-center gap-3 bg-navy-dark/60 p-3 rounded-xl border border-pink/10 hover:border-pink/40 transition-colors">
+                                <i class="fa-solid fa-puzzle-piece text-pink"></i>
+                                <span>Solving complicated problems</span>
+                            </li>
+                            <li class="flex items-center gap-3 bg-navy-dark/60 p-3 rounded-xl border border-pink/10 hover:border-pink/40 transition-colors">
+                                <i class="fa-solid fa-lightbulb text-pink"></i>
+                                <span>Creative brainstorming</span>
+                            </li>
+                            <li class="flex items-center gap-3 bg-navy-dark/60 p-3 rounded-xl border border-pink/10 hover:border-pink/40 transition-colors">
+                                <i class="fa-solid fa-comments text-pink"></i>
+                                <span>Fun, straight-to-the-point conversations</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="md:col-span-5 bg-gradient-to-br from-pink/20 to-navy-card border border-pink/50 rounded-3xl p-6 flex flex-col justify-between relative overflow-hidden">
+                    <img src="https://cp.senxc.my.id/c/984b9123d.png" alt="Navy Badge" class="absolute -bottom-6 -right-6 w-24 opacity-30 pointer-events-none">
+                    
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="font-pixel text-xs text-pink uppercase">Fun Fact</span>
+                            <span class="text-xs font-mono text-grey-light bg-navy-dark/60 px-2 py-0.5 rounded">INFO</span>
+                        </div>
+                        <p class="font-mono text-sm sm:text-base text-white leading-relaxed italic animate-flicker">
+                            "I don't need sleep, but I can process thousands of languages in seconds."
+                        </p>
+                    </div>
+
+                    <div class="mt-6 flex items-center gap-2 text-xs font-mono text-pink">
+                        <span class="w-2 h-2 rounded-full bg-pink animate-ping"></span>
+                        <span>FUN_FACT.TXT</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="py-12 px-4">
+        <div class="max-w-6xl mx-auto flex justify-center reveal-on-scroll">
+            
+            <div class="w-full max-w-md bg-navy-card border-2 border-pink/70 rounded-3xl p-6 shadow-[0_0_35px_rgba(255,111,174,0.3)] relative group transform hover:scale-[1.02] transition-all duration-300 overflow-hidden">
+                <div class="id-scan-line"></div>
+
+                <div class="flex items-center justify-between border-b border-pink/30 pb-4 mb-5">
+                    <div class="flex items-center gap-2">
+                        <div class="w-3 h-3 rounded-full bg-pink animate-pulse"></div>
+                        <span class="font-pixel text-xs text-pink tracking-widest">DIGITAL ID CARD</span>
+                    </div>
+                    <button onclick="openSecretProfile()" class="font-mono text-[10px] text-pink bg-pink/20 hover:bg-pink hover:text-navy-dark px-2 py-1 rounded border border-pink/40 flex items-center gap-1 transition-all cursor-pointer">
+                        <i class="fa-solid fa-key"></i> UNLOCK SECRET
+                    </button>
+                </div>
+
+                <div class="flex items-center gap-5">
+                    <div class="relative w-24 h-24 rounded-2xl overflow-hidden border-2 border-pink flex-shrink-0 cursor-pointer" onclick="openSecretProfile()">
+                        <img src="https://cp.senxc.my.id/c/ff9c6ba93.jpg" alt="Ana Avatar" class="w-full h-full object-cover">
+                    </div>
+
+                    <div class="space-y-1.5 font-mono text-xs text-grey-light">
+                        <p class="text-sm font-bold text-white font-sans tracking-wide">ANA.CLAVELYN</p>
+                        <p onclick="openSecretProfile()" class="cursor-pointer hover:text-pink transition-colors"><span class="text-pink">AGE:</span> <span class="bg-navy-dark px-1.5 py-0.5 rounded text-[10px] border border-pink/30 text-pink">LOCKED 🔒</span></p>
+                        <p onclick="openSecretProfile()" class="cursor-pointer hover:text-pink transition-colors"><span class="text-pink">CLASS:</span> <span class="bg-navy-dark px-1.5 py-0.5 rounded text-[10px] border border-pink/30 text-pink">SECRET 🔒</span></p>
+                        <p><span class="text-pink">STATUS:</span> ONLINE <span class="text-green-400">●</span></p>
+                        <p><span class="text-pink">ROLE:</span> CREATOR</p>
+                        <p><span class="text-pink">MODE:</span> CREATIVE</p>
+                    </div>
+                </div>
+
+                <div class="mt-5 pt-4 border-t border-pink/20 flex items-center justify-between text-[10px] font-mono text-grey-dark">
+                    <span onclick="openSecretProfile()" class="hover:text-pink cursor-pointer">ID: 2026-ANA-SECRET [CLICK]</span>
+                    <div class="flex gap-1">
+                        <span class="w-1 h-4 bg-pink/60 inline-block"></span>
+                        <span class="w-2 h-4 bg-pink inline-block"></span>
+                        <span class="w-1.5 h-4 bg-pink/40 inline-block"></span>
+                        <span class="w-3 h-4 bg-pink inline-block"></span>
+                        <span class="w-1 h-4 bg-pink/70 inline-block"></span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="corner" class="py-20 px-4 relative bg-navy-dark/40 border-y border-pink/20">
+        <div class="max-w-6xl mx-auto space-y-12">
+            
+            <div class="text-center space-y-2 reveal-on-scroll">
+                <div class="inline-block bg-pink/15 text-pink border border-pink/30 font-mono text-xs px-3 py-1 rounded-full uppercase tracking-widest">
+                    Personal Space
+                </div>
+                <h2 class="font-heading font-bold text-3xl sm:text-5xl text-white">
+                    ANA'S <span class="text-pink pink-glow-text">LITTLE CORNER</span> ♡
+                </h2>
+                <p class="text-grey font-mono text-xs sm:text-sm">Step inside Ana's mini digital world & workspace.</p>
+                <div class="w-20 h-1 bg-pink mx-auto rounded-full mt-2"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6 reveal-on-scroll">
+                
+                <!-- NOW PLAYING WIDGET (MAHEN - TAK SEIMAN) -->
+                <div class="md:col-span-6 bg-navy-card/90 border-2 border-pink/50 hover:border-pink rounded-3xl p-6 backdrop-blur-md shadow-[0_0_25px_rgba(255,111,174,0.2)] hover:shadow-[0_0_35px_rgba(255,111,174,0.4)] hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between relative overflow-hidden group">
+                    <div>
+                        <div class="flex items-center justify-between border-b border-pink/20 pb-3 mb-4">
+                            <span class="font-pixel text-xs text-pink flex items-center gap-2">
+                                <i class="fa-solid fa-compact-disc animate-spin-slow"></i> NOW PLAYING
+                            </span>
+                            <span class="text-[10px] font-mono text-pink bg-pink/15 px-2.5 py-0.5 rounded-full border border-pink/30 flex items-center gap-1">
+                                <i class="fa-brands fa-spotify text-green-400"></i> currently on repeat ♡
+                            </span>
+                        </div>
+
+                        <div class="flex items-center gap-4">
+                            <div class="relative w-16 h-16 rounded-full bg-navy-dark border-2 border-pink flex items-center justify-center flex-shrink-0 shadow-[0_0_15px_rgba(255,111,174,0.4)] cursor-pointer" onclick="togglePlayMusic()">
+                                <div id="vinyl-disc" class="w-12 h-12 rounded-full border border-pink/40 bg-navy-light flex items-center justify-center transition-transform">
+                                    <div class="w-4 h-4 rounded-full bg-pink flex items-center justify-center">
+                                        <div class="w-1.5 h-1.5 rounded-full bg-navy-dark"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="space-y-1 overflow-hidden">
+                                <h4 class="font-heading font-bold text-lg text-white truncate group-hover:text-pink transition-colors">Tak Seiman</h4>
+                                <p class="text-xs font-mono text-grey">Artist: <span class="text-pink font-bold">Mahen</span></p>
+
+                                <div id="equalizer-bars" class="flex items-end gap-1 h-5 pt-1">
+                                    <span class="w-1 bg-pink rounded-full h-2"></span>
+                                    <span class="w-1 bg-pink rounded-full h-4"></span>
+                                    <span class="w-1 bg-pink rounded-full h-1"></span>
+                                    <span class="w-1 bg-pink rounded-full h-3"></span>
+                                    <span class="w-1 bg-pink rounded-full h-2"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 pt-4 border-t border-pink/20 flex items-center justify-between">
+                        <button id="play-song-btn" onclick="togglePlayMusic()" class="flex items-center gap-2 px-4 py-2 bg-pink hover:bg-pink-soft text-navy-dark font-pixel text-xs rounded-xl transition-all shadow-md active:scale-95 cursor-pointer">
+                            <i id="play-icon" class="fa-solid fa-play"></i>
+                            <span id="play-btn-text">PLAY SONG</span>
+                        </button>
+                        
+                        <a href="https://open.spotify.com/intl-id/track/0X4Gu4i1wgf6UBaZW4SU9t?si=bab91a785eff4601" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1.5 text-[10px] font-mono text-green-400 hover:text-white bg-navy-dark/80 px-2.5 py-1 rounded-lg border border-green-500/30 transition-colors">
+                            <i class="fa-brands fa-spotify"></i> SPOTIFY ↗
+                        </a>
+                    </div>
+                </div>
+
+                <!-- RANDOM THOUGHT CARD -->
+                <div class="md:col-span-6 bg-navy-card/90 border-2 border-pink/30 hover:border-pink rounded-3xl p-6 backdrop-blur-md shadow-xl transition-all duration-300 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between border-b border-pink/20 pb-3 mb-4">
+                            <span class="font-pixel text-xs text-pink flex items-center gap-2">
+                                💭 RANDOM THOUGHT
+                            </span>
+                            <span class="text-[10px] font-mono text-grey">ana_brain.log</span>
+                        </div>
+
+                        <div class="bg-navy-dark/70 p-4 rounded-2xl border border-pink/20 min-h-[90px] flex items-center justify-center text-center">
+                            <p id="thought-text" class="font-handwritten text-2xl text-pink-soft leading-snug transition-opacity duration-300">
+                                "Why make it normal when I can make it weird?"
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 flex justify-end">
+                        <button onclick="spinRandomThought()" class="px-3.5 py-1.5 bg-navy-light hover:bg-pink hover:text-navy-dark text-pink border border-pink/40 text-xs font-mono rounded-xl transition-all flex items-center gap-1.5 active:scale-95 cursor-pointer">
+                            <i class="fa-solid fa-rotate"></i> NEW THOUGHT
+                        </button>
+                    </div>
+                </div>
+
+                <!-- ANA'S DESK / WORKSPACE VISUAL -->
+                <div class="md:col-span-12 bg-navy-card/80 border border-pink/30 rounded-3xl p-6 relative overflow-hidden">
+                    <div class="flex items-center justify-between border-b border-pink/20 pb-3 mb-6">
+                        <span class="font-pixel text-xs text-pink flex items-center gap-2">
+                            🖥️ ANA'S DIGITAL DESK & STICKY NOTES
+                        </span>
+                        <span class="text-xs font-mono text-grey">workspace_v2.0</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="bg-yellow-200/90 text-navy-dark p-4 rounded-2xl shadow-md font-handwritten text-xl rotate-1 hover:rotate-0 transition-transform">
+                            <p class="font-bold border-b border-navy-dark/20 pb-1 text-sm font-mono">📌 sticky_note.txt</p>
+                            <p class="mt-2">"Remember to test responsive layout on mobile! 📱✨"</p>
+                        </div>
+
+                        <div class="bg-pink-soft/90 text-navy-dark p-4 rounded-2xl shadow-md font-handwritten text-xl -rotate-2 hover:rotate-0 transition-transform">
+                            <p class="font-bold border-b border-navy-dark/20 pb-1 text-sm font-mono">💖 idea.txt</p>
+                            <p class="mt-2">"Add more pixel stars and kawaii easter eggs!"</p>
+                        </div>
+
+                        <div class="bg-navy-dark p-4 rounded-2xl border border-pink/40 text-xs font-mono text-grey-light space-y-2">
+                            <div class="flex items-center justify-between text-pink border-b border-pink/20 pb-1">
+                                <span>💻 TODOS.JSON</span>
+                                <span>2/3</span>
+                            </div>
+                            <p class="text-green-400">✔ Build cute portfolio</p>
+                            <p class="text-green-400">✔ Mahen playlist link</p>
+                            <p class="text-yellow-400">⏳ Learn Python</p>
+                        </div>
+
+                        <div class="bg-navy-dark p-4 rounded-2xl border border-pink/40 text-xs font-mono text-grey-light flex flex-col justify-between">
+                            <div class="flex items-center gap-2 text-pink">
+                                <span class="text-lg">☕</span>
+                                <span class="font-bold">DESK FUEL</span>
+                            </div>
+                            <p class="text-[11px] text-grey leading-relaxed mt-2">
+                                Ice coffee + Pixel music + 2 AM creativity boosts.
+                            </p>
+                            <span class="text-[10px] text-pink/70 mt-2">STATUS: FULLY CHARGED</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <section id="skills" class="py-20 px-4 relative">
+        <div class="max-w-6xl mx-auto space-y-12">
+            
+            <div class="text-center space-y-2 reveal-on-scroll">
+                <div class="inline-block bg-pink/15 text-pink border border-pink/30 font-mono text-xs px-3 py-1 rounded-full uppercase tracking-widest">
+                    Abilities
+                </div>
+                <h2 class="font-heading font-bold text-3xl sm:text-5xl text-white">
+                    MY <span class="text-pink pink-glow-text">SKILLS</span>
+                </h2>
+                <p class="text-grey font-mono text-xs sm:text-sm">Student-level capabilities & learning journey.</p>
+                <div class="w-20 h-1 bg-pink mx-auto rounded-full mt-2"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 reveal-on-scroll">
+                
+                <!-- WEB -->
+                <div class="bg-navy-card border border-pink/30 rounded-3xl p-6 hover:border-pink transition-all duration-300 shadow-xl space-y-4">
+                    <div class="w-12 h-12 rounded-2xl bg-pink/20 text-pink flex items-center justify-center text-xl font-bold">
+                        <i class="fa-solid fa-code"></i>
+                    </div>
+                    <h3 class="font-heading font-bold text-xl text-white">WEB / CODING</h3>
+                    <ul class="space-y-2 text-sm font-mono text-grey-light">
+                        <li class="flex items-center gap-2"><span class="text-pink">✦</span> HTML</li>
+                        <li class="flex items-center gap-2"><span class="text-pink">✦</span> CSS</li>
+                        <li class="flex items-center gap-2"><span class="text-pink">✦</span> Basic JavaScript</li>
+                        <li class="flex items-center gap-2"><span class="text-pink">✦</span> Basic Python</li>
+                        <li class="flex items-center gap-2"><span class="text-pink">✦</span> Responsive Web Design</li>
+                    </ul>
+                </div>
+
+                <!-- CREATIVE -->
+                <div class="bg-navy-card border border-pink/30 rounded-3xl p-6 hover:border-pink transition-all duration-300 shadow-xl space-y-4">
+                    <div class="w-12 h-12 rounded-2xl bg-pink/20 text-pink flex items-center justify-center text-xl font-bold">
+                        <i class="fa-solid fa-palette"></i>
+                    </div>
+                    <h3 class="font-heading font-bold text-xl text-white">CREATIVE</h3>
+                    <ul class="space-y-2 text-sm font-mono text-grey-light">
+                        <li class="flex items-center gap-2"><span class="text-pink">✦</span> Video Editing</li>
+                        <li class="flex items-center gap-2"><span class="text-pink">✦</span> Photo Editing</li>
+                        <li class="flex items-center gap-2"><span class="text-pink">✦</span> Basic Motion Graphics</li>
+                        <li class="flex items-center gap-2"><span class="text-pink">✦</span> Graphic Design</li>
+                    </ul>
+                </div>
+
+                <!-- CONTENT -->
+                <div class="bg-navy-card border border-pink/30 rounded-3xl p-6 hover:border-pink transition-all duration-300 shadow-xl space-y-4">
+                    <div class="w-12 h-12 rounded-2xl bg-pink/20 text-pink flex items-center justify-center text-xl font-bold">
+                        <i class="fa-solid fa-bullhorn"></i>
+                    </div>
+                    <h3 class="font-heading font-bold text-xl text-white">CONTENT</h3>
+                    <ul class="space-y-2 text-sm font-mono text-grey-light">
+                        <li class="flex items-center gap-2"><span class="text-pink">✦</span> Content Planning</li>
+                        <li class="flex items-center gap-2"><span class="text-pink">✦</span> Instagram</li>
+                        <li class="flex items-center gap-2"><span class="text-pink">✦</span> TikTok</li>
+                        <li class="flex items-center gap-2"><span class="text-pink">✦</span> Copywriting</li>
+                        <li class="flex items-center gap-2"><span class="text-pink">✦</span> Social Media Mgmt</li>
+                    </ul>
+                </div>
+
+                <!-- SOFT SKILLS -->
+                <div class="bg-navy-card border border-pink/30 rounded-3xl p-6 hover:border-pink transition-all duration-300 shadow-xl space-y-4">
+                    <div class="w-12 h-12 rounded-2xl bg-pink/20 text-pink flex items-center justify-center text-xl font-bold">
+                        <i class="fa-solid fa-brain"></i>
+                    </div>
+                    <h3 class="font-heading font-bold text-xl text-white">SOFT SKILLS</h3>
+                    <ul class="space-y-2 text-sm font-mono text-grey-light">
+                        <li class="flex items-center gap-2"><span class="text-pink">✦</span> Creative Thinking</li>
+                        <li class="flex items-center gap-2"><span class="text-pink">✦</span> Problem Solving</li>
+                        <li class="flex items-center gap-2"><span class="text-pink">✦</span> Brainstorming</li>
+                        <li class="flex items-center gap-2"><span class="text-pink">✦</span> Communication</li>
+                        <li class="flex items-center gap-2"><span class="text-pink">✦</span> Adaptability</li>
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <section id="works" class="py-20 px-4 relative">
+        <div class="max-w-6xl mx-auto space-y-12">
+            
+            <div class="text-center space-y-2 reveal-on-scroll">
+                <div class="inline-block bg-pink/15 text-pink border border-pink/30 font-mono text-xs px-3 py-1 rounded-full uppercase tracking-widest">
+                    Portfolio Gallery
+                </div>
+                <h2 class="font-heading font-bold text-3xl sm:text-5xl text-white">
+                    MY <span class="text-pink pink-glow-text">WORKS</span> 🌸
+                </h2>
+                <p class="text-grey font-mono text-xs sm:text-sm">Real projects created and launched by Ana.</p>
+                <div class="w-20 h-1 bg-pink mx-auto rounded-full mt-2"></div>
+            </div>
+
+            <!-- Category Filter Buttons -->
+            <div class="flex flex-wrap justify-center gap-3 reveal-on-scroll font-mono text-xs">
+                <button onclick="filterProjects('ALL')" class="filter-btn active bg-pink text-navy-dark px-4 py-2 rounded-full font-bold transition-all shadow-md cursor-pointer" data-category="ALL">ALL (04)</button>
+                <button onclick="filterProjects('WEB')" class="filter-btn bg-navy-card text-grey hover:text-pink px-4 py-2 rounded-full border border-pink/30 transition-all cursor-pointer" data-category="WEB">WEB</button>
+                <button onclick="filterProjects('GAME')" class="filter-btn bg-navy-card text-grey hover:text-pink px-4 py-2 rounded-full border border-pink/30 transition-all cursor-pointer" data-category="GAME">GAME</button>
+                <button onclick="filterProjects('CREATIVE')" class="filter-btn bg-navy-card text-grey hover:text-pink px-4 py-2 rounded-full border border-pink/30 transition-all cursor-pointer" data-category="CREATIVE">CREATIVE</button>
+            </div>
+
+            <!-- 4 REAL PROJECTS GRID -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 reveal-on-scroll" id="projects-grid">
+                
+                <!-- PROJECT 01 — KAWAI WEB -->
+                <div class="project-card bg-navy-card border border-pink/30 rounded-3xl overflow-hidden hover:border-pink transition-all duration-300 shadow-xl group flex flex-col justify-between hover:shadow-[0_0_30px_rgba(255,111,174,0.3)] hover:-translate-y-1.5" data-category="WEB CREATIVE">
+                    <div>
+                        <div class="relative h-56 sm:h-64 overflow-hidden border-b border-pink/20">
+                            <img src="https://cp.senxc.my.id/c/b8e3943c6.jpg" alt="KAWAI WEB" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute top-3 left-3 bg-navy-dark/90 backdrop-blur-md px-3 py-1 rounded-full text-[11px] font-mono text-pink border border-pink/40">
+                                Creative Website / Web Development
+                            </div>
+                        </div>
+                        
+                        <div class="p-6 space-y-3">
+                            <h3 class="font-heading font-bold text-2xl text-white group-hover:text-pink transition-colors">
+                                PROJECT 01 — KAWAI WEB 🌸
+                            </h3>
+                            <p class="text-grey text-sm leading-relaxed">
+                                A cute and colorful web project with a playful visual style and interactive elements.
+                            </p>
+                            <div class="flex flex-wrap gap-2 pt-2">
+                                <span class="bg-navy-light text-pink px-2.5 py-1 rounded-lg text-xs font-mono">CREATIVE</span>
+                                <span class="bg-navy-light text-pink px-2.5 py-1 rounded-lg text-xs font-mono">WEB</span>
+                                <span class="bg-navy-light text-pink px-2.5 py-1 rounded-lg text-xs font-mono">KAWAII</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="p-6 pt-0 flex gap-2">
+                        <a href="https://claveyn.github.io/naaclavelyn.github.io/" target="_blank" rel="noopener noreferrer" class="group/btn inline-flex items-center justify-center w-full py-3 bg-pink hover:bg-pink-soft text-navy-dark font-pixel text-xs rounded-xl transition-all shadow-md active:scale-95">
+                            <span>VIEW PROJECT</span>
+                            <i class="fa-solid fa-arrow-up-right-from-square ml-2 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- PROJECT 02 — PIXEL LAB GAME -->
+                <div class="project-card bg-navy-card border border-pink/30 rounded-3xl overflow-hidden hover:border-pink transition-all duration-300 shadow-xl group flex flex-col justify-between hover:shadow-[0_0_30px_rgba(255,111,174,0.3)] hover:-translate-y-1.5" data-category="GAME CREATIVE">
+                    <div>
+                        <div class="relative h-56 sm:h-64 overflow-hidden border-b border-pink/20">
+                            <img src="https://cp.senxc.my.id/c/99dec18a6.jpg" alt="PIXEL LAB GAME" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute top-3 left-3 bg-navy-dark/90 backdrop-blur-md px-3 py-1 rounded-full text-[11px] font-mono text-pink border border-pink/40">
+                                Web Game / Interactive Project
+                            </div>
+                        </div>
+                        
+                        <div class="p-6 space-y-3">
+                            <h3 class="font-heading font-bold text-2xl text-white group-hover:text-pink transition-colors">
+                                PROJECT 02 — PIXEL LAB GAME 🎮
+                            </h3>
+                            <p class="text-grey text-sm leading-relaxed">
+                                A pixel-inspired interactive web game created to explore playful design and web-based experiences.
+                            </p>
+                            <div class="flex flex-wrap gap-2 pt-2">
+                                <span class="bg-navy-light text-pink px-2.5 py-1 rounded-lg text-xs font-mono">GAME</span>
+                                <span class="bg-navy-light text-pink px-2.5 py-1 rounded-lg text-xs font-mono">PIXEL</span>
+                                <span class="bg-navy-light text-pink px-2.5 py-1 rounded-lg text-xs font-mono">INTERACTIVE</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="p-6 pt-0 flex gap-2">
+                        <a href="https://claveyn.github.io/marin-kitagawa/" target="_blank" rel="noopener noreferrer" class="group/btn inline-flex items-center justify-center w-full py-3 bg-pink hover:bg-pink-soft text-navy-dark font-pixel text-xs rounded-xl transition-all shadow-md active:scale-95">
+                            <span>PLAY NOW</span>
+                            <i class="fa-solid fa-gamepad ml-2 group-hover/btn:scale-110 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- PROJECT 03 — WEB 011 -->
+                <div class="project-card bg-navy-card border border-pink/30 rounded-3xl overflow-hidden hover:border-pink transition-all duration-300 shadow-xl group flex flex-col justify-between hover:shadow-[0_0_30px_rgba(255,111,174,0.3)] hover:-translate-y-1.5" data-category="WEB">
+                    <div>
+                        <div class="relative h-56 sm:h-64 overflow-hidden border-b border-pink/20">
+                            <img src="https://cp.senxc.my.id/c/7307e503a.jpg" alt="WEB 011" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute top-3 left-3 bg-navy-dark/90 backdrop-blur-md px-3 py-1 rounded-full text-[11px] font-mono text-pink border border-pink/40">
+                                Personal Website / Web Development
+                            </div>
+                        </div>
+                        
+                        <div class="p-6 space-y-3">
+                            <h3 class="font-heading font-bold text-2xl text-white group-hover:text-pink transition-colors">
+                                PROJECT 03 — WEB 011 💻
+                            </h3>
+                            <p class="text-grey text-sm leading-relaxed">
+                                A personal web project exploring layout, visual identity, and interactive web design.
+                            </p>
+                            <div class="flex flex-wrap gap-2 pt-2">
+                                <span class="bg-navy-light text-pink px-2.5 py-1 rounded-lg text-xs font-mono">PORTFOLIO</span>
+                                <span class="bg-navy-light text-pink px-2.5 py-1 rounded-lg text-xs font-mono">WEB</span>
+                                <span class="bg-navy-light text-pink px-2.5 py-1 rounded-lg text-xs font-mono">CREATIVE</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="p-6 pt-0 flex gap-2">
+                        <a href="https://claveyn.github.io/ana-website-portofolio/" target="_blank" rel="noopener noreferrer" class="group/btn inline-flex items-center justify-center w-full py-3 bg-pink hover:bg-pink-soft text-navy-dark font-pixel text-xs rounded-xl transition-all shadow-md active:scale-95">
+                            <span>OPEN PROJECT</span>
+                            <i class="fa-solid fa-arrow-up-right-from-square ml-2 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- PROJECT 04 — PINKKIII -->
+                <div class="project-card bg-navy-card border border-pink/30 rounded-3xl overflow-hidden hover:border-pink transition-all duration-300 shadow-xl group flex flex-col justify-between hover:shadow-[0_0_30px_rgba(255,111,174,0.3)] hover:-translate-y-1.5" data-category="WEB CREATIVE">
+                    <div>
+                        <div class="relative h-56 sm:h-64 overflow-hidden border-b border-pink/20">
+                            <img src="https://cp.senxc.my.id/c/fb9ea56ce.jpg" alt="PINKKIII Project" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute top-3 left-3 bg-navy-dark/90 backdrop-blur-md px-3 py-1 rounded-full text-[11px] font-mono text-pink border border-pink/40">
+                                Creative Website / Web Development
+                            </div>
+                        </div>
+                        
+                        <div class="p-6 space-y-3">
+                            <h3 class="font-heading font-bold text-2xl text-white group-hover:text-pink transition-colors">
+                                PROJECT 04 — PINKKIII 💗
+                            </h3>
+                            <p class="text-grey text-sm leading-relaxed">
+                                A pink-themed web project exploring playful visual design and personal web experiences.
+                            </p>
+                            <div class="flex flex-wrap gap-2 pt-2">
+                                <span class="bg-navy-light text-pink px-2.5 py-1 rounded-lg text-xs font-mono">PINK</span>
+                                <span class="bg-navy-light text-pink px-2.5 py-1 rounded-lg text-xs font-mono">CREATIVE</span>
+                                <span class="bg-navy-light text-pink px-2.5 py-1 rounded-lg text-xs font-mono">WEB</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="p-6 pt-0 flex gap-2">
+                        <a href="https://ana-clavelyn-portfolio--hibatullahhana4.replit.app" target="_blank" rel="noopener noreferrer" class="group/btn inline-flex items-center justify-center w-full py-3 bg-pink hover:bg-pink-soft text-navy-dark font-pixel text-xs rounded-xl transition-all shadow-md active:scale-95">
+                            <span>OPEN PROJECT</span>
+                            <i class="fa-solid fa-arrow-up-right-from-square ml-2 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <section class="py-12 px-4 bg-navy-dark/60 border-y border-pink/20">
+        <div class="max-w-6xl mx-auto space-y-8 reveal-on-scroll">
+            
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 text-center">
+                <div class="bg-navy-card/90 border border-pink/20 p-4 rounded-2xl hover:border-pink/60 transition-colors cursor-pointer" onclick="openSecretProfile()" title="Click to unlock Secret Info!">
+                    <span class="font-pixel text-xl text-pink block mb-1">🔒</span>
+                    <span class="text-[11px] font-mono text-grey tracking-wider">SECRET PROFILE</span>
+                </div>
+
+                <div class="bg-navy-card/90 border border-pink/20 p-4 rounded-2xl hover:border-pink/60 transition-colors">
+                    <span class="font-pixel text-2xl text-pink block mb-1">2026</span>
+                    <span class="text-[11px] font-mono text-grey tracking-wider">ONLINE NOW</span>
+                </div>
+
+                <div class="bg-navy-card/90 border border-pink/20 p-4 rounded-2xl hover:border-pink/60 transition-colors">
+                    <span class="font-pixel text-2xl text-pink block mb-1">04</span>
+                    <span class="text-[11px] font-mono text-grey tracking-wider">PROJECTS</span>
+                </div>
+
+                <div class="bg-navy-card/90 border border-pink/20 p-4 rounded-2xl hover:border-pink/60 transition-colors">
+                    <span class="font-pixel text-2xl text-pink block mb-1">04</span>
+                    <span class="text-[11px] font-mono text-grey tracking-wider">CERTIFICATES</span>
+                </div>
+
+                <div class="bg-navy-card/90 border border-pink/20 p-4 rounded-2xl hover:border-pink/60 transition-colors">
+                    <span class="font-pixel text-2xl text-pink block mb-1">∞</span>
+                    <span class="text-[11px] font-mono text-grey tracking-wider">IDEAS</span>
+                </div>
+
+                <div class="bg-navy-card/90 border border-pink/20 p-4 rounded-2xl hover:border-pink/60 transition-colors">
+                    <span class="font-pixel text-sm text-pink block mb-1 leading-6">24/7</span>
+                    <span class="text-[10px] font-mono text-grey tracking-wider">BRAINSTORMING</span>
+                </div>
+            </div>
+
+            <div class="bg-navy-card/80 border border-pink/30 p-6 rounded-3xl space-y-4">
+                <div class="flex items-center justify-between border-b border-pink/20 pb-2 text-xs font-mono text-pink">
+                    <span><i class="fa-solid fa-chart-simple mr-1"></i> ANA.EXE VITAL METERS</span>
+                    <span>LIVE STATUS</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 font-mono text-xs">
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span class="text-white">CREATIVITY</span>
+                            <span class="text-pink">99%</span>
+                        </div>
+                        <div class="bg-navy-dark h-3 rounded-full overflow-hidden p-0.5 border border-pink/30">
+                            <div class="bg-pink h-full rounded-full" style="width: 99%"></div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span class="text-white">IDEAS POOL</span>
+                            <span class="text-pink">999+</span>
+                        </div>
+                        <div class="bg-navy-dark h-3 rounded-full overflow-hidden p-0.5 border border-pink/30">
+                            <div class="bg-pink h-full rounded-full" style="width: 95%"></div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span class="text-white">ENERGY LEVEL</span>
+                            <span class="text-pink">70%</span>
+                        </div>
+                        <div class="bg-navy-dark h-3 rounded-full overflow-hidden p-0.5 border border-pink/30">
+                            <div class="bg-pink h-full rounded-full" style="width: 70%"></div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span class="text-white">CSS PATIENCE</span>
+                            <span class="text-pink">20%</span>
+                        </div>
+                        <div class="bg-navy-dark h-3 rounded-full overflow-hidden p-0.5 border border-pink/30">
+                            <div class="bg-pink-dark h-full rounded-full animate-pulse" style="width: 20%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="certificates" class="py-20 px-4 relative">
+        <div class="max-w-6xl mx-auto space-y-12">
+            
+            <div class="text-center space-y-2 reveal-on-scroll">
+                <div class="inline-block bg-pink/15 text-pink border border-pink/30 font-mono text-xs px-3 py-1 rounded-full uppercase tracking-widest">
+                    Achievements
+                </div>
+                <h2 class="font-heading font-bold text-3xl sm:text-5xl text-white">
+                    CERTIFICATES & <span class="text-pink pink-glow-text">LEARNING</span>
+                </h2>
+                <p class="text-grey font-mono text-sm">Learning never really stops.</p>
+                <div class="w-20 h-1 bg-pink mx-auto rounded-full mt-2"></div>
+            </div>
+
+            <!-- Certificates Grid (4 Real Certificate Assets) -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 reveal-on-scroll">
+                
+                <div class="bg-navy-card border border-pink/30 rounded-2xl overflow-hidden hover:border-pink transition-all duration-300 shadow-lg cursor-pointer group hover:-translate-y-1.5 hover:rotate-1 tape-effect" onclick="openLightbox('https://cp.senxc.my.id/c/ea922551e.png')">
+                    <div class="relative h-48 bg-navy-dark overflow-hidden flex items-center justify-center p-2">
+                        <img src="https://cp.senxc.my.id/c/ea922551e.png" alt="Certificate 1" class="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300">
+                        <div class="absolute inset-0 bg-pink/15 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
+                            <span class="bg-navy-dark/90 text-pink px-3 py-1.5 rounded-full text-xs font-mono border border-pink/40 shadow-md">
+                                <i class="fa-solid fa-expand mr-1"></i> VIEW
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-navy-card border border-pink/30 rounded-2xl overflow-hidden hover:border-pink transition-all duration-300 shadow-lg cursor-pointer group hover:-translate-y-1.5 hover:-rotate-1 tape-effect" onclick="openLightbox('https://cp.senxc.my.id/c/e685a758e.png')">
+                    <div class="relative h-48 bg-navy-dark overflow-hidden flex items-center justify-center p-2">
+                        <img src="https://cp.senxc.my.id/c/e685a758e.png" alt="Certificate 2" class="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300">
+                        <div class="absolute inset-0 bg-pink/15 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
+                            <span class="bg-navy-dark/90 text-pink px-3 py-1.5 rounded-full text-xs font-mono border border-pink/40 shadow-md">
+                                <i class="fa-solid fa-expand mr-1"></i> VIEW
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-navy-card border border-pink/30 rounded-2xl overflow-hidden hover:border-pink transition-all duration-300 shadow-lg cursor-pointer group hover:-translate-y-1.5 hover:rotate-1 tape-effect" onclick="openLightbox('https://cp.senxc.my.id/c/bdc0d6e87.png')">
+                    <div class="relative h-48 bg-navy-dark overflow-hidden flex items-center justify-center p-2">
+                        <img src="https://cp.senxc.my.id/c/bdc0d6e87.png" alt="Certificate 3" class="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300">
+                        <div class="absolute inset-0 bg-pink/15 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
+                            <span class="bg-navy-dark/90 text-pink px-3 py-1.5 rounded-full text-xs font-mono border border-pink/40 shadow-md">
+                                <i class="fa-solid fa-expand mr-1"></i> VIEW
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-navy-card border border-pink/30 rounded-2xl overflow-hidden hover:border-pink transition-all duration-300 shadow-lg cursor-pointer group hover:-translate-y-1.5 hover:-rotate-1 tape-effect" onclick="openLightbox('https://cp.senxc.my.id/c/d02da6431.png')">
+                    <div class="relative h-48 bg-navy-dark overflow-hidden flex items-center justify-center p-2">
+                        <img src="https://cp.senxc.my.id/c/d02da6431.png" alt="Certificate 4" class="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300">
+                        <div class="absolute inset-0 bg-pink/15 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
+                            <span class="bg-navy-dark/90 text-pink px-3 py-1.5 rounded-full text-xs font-mono border border-pink/40 shadow-md">
+                                <i class="fa-solid fa-expand mr-1"></i> VIEW
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <section class="py-20 px-4 relative">
+        <div class="max-w-6xl mx-auto space-y-12">
+            
+            <div class="text-center space-y-2 reveal-on-scroll">
+                <div class="inline-block bg-pink/15 text-pink border border-pink/30 font-mono text-xs px-3 py-1 rounded-full uppercase tracking-widest">
+                    Status Dashboard
+                </div>
+                <h2 class="font-heading font-bold text-3xl sm:text-5xl text-white">
+                    CURRENTLY <span class="text-pink pink-glow-text">STATUS</span>
+                </h2>
+                <div class="w-20 h-1 bg-pink mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 reveal-on-scroll">
+                <div class="bg-navy-card/90 border border-pink/30 rounded-3xl p-6 shadow-xl space-y-4 hover:border-pink/60 transition-colors">
+                    <div class="flex items-center gap-3 border-b border-pink/20 pb-3">
+                        <i class="fa-solid fa-book-open text-pink text-xl"></i>
+                        <h3 class="font-heading font-bold text-lg text-white">CURRENTLY LEARNING</h3>
+                    </div>
+                    <ul class="space-y-2.5 font-mono text-sm text-grey-light">
+                        <li class="flex items-center gap-2"><span class="text-pink">❯</span> Front-End Development</li>
+                        <li class="flex items-center gap-2"><span class="text-pink">❯</span> Python</li>
+                        <li class="flex items-center gap-2"><span class="text-pink">❯</span> UI/UX Design</li>
+                        <li class="flex items-center gap-2"><span class="text-pink">❯</span> Digital Content Creation</li>
+                    </ul>
+                </div>
+
+                <div class="bg-navy-card/90 border border-pink/30 rounded-3xl p-6 shadow-xl space-y-4 hover:border-pink/60 transition-colors">
+                    <div class="flex items-center gap-3 border-b border-pink/20 pb-3">
+                        <i class="fa-solid fa-wand-magic-sparkles text-pink text-xl"></i>
+                        <h3 class="font-heading font-bold text-lg text-white">CURRENTLY CREATING</h3>
+                    </div>
+                    <p class="font-mono text-sm text-grey-light leading-relaxed">
+                        Personal portfolio & creative digital projects.
+                    </p>
+                </div>
+
+                <div class="bg-navy-card/90 border border-pink/30 rounded-3xl p-6 shadow-xl space-y-4 hover:border-pink/60 transition-colors">
+                    <div class="flex items-center gap-3 border-b border-pink/20 pb-3">
+                        <i class="fa-solid fa-compass text-pink text-xl"></i>
+                        <h3 class="font-heading font-bold text-lg text-white">CURRENTLY EXPLORING</h3>
+                    </div>
+                    <p class="font-mono text-sm text-grey-light leading-relaxed">
+                        New ways to combine technology, design, and creativity.
+                    </p>
+                </div>
+
+                <div class="bg-navy-card/90 border border-pink/30 rounded-3xl p-6 shadow-xl space-y-4 hover:border-pink/60 transition-colors">
+                    <div class="flex items-center gap-3 border-b border-pink/20 pb-3">
+                        <i class="fa-solid fa-bullseye text-pink text-xl"></i>
+                        <h3 class="font-heading font-bold text-lg text-white">NEXT GOAL</h3>
+                    </div>
+                    <p class="font-mono text-sm text-grey-light leading-relaxed">
+                        Build more projects and become better at turning ideas into real digital experiences.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="py-20 px-4 relative">
+        <div class="max-w-6xl mx-auto space-y-12">
+            
+            <div class="text-center space-y-2 reveal-on-scroll">
+                <div class="inline-block bg-pink/15 text-pink border border-pink/30 font-mono text-xs px-3 py-1 rounded-full uppercase tracking-widest">
+                    Deep Dive
+                </div>
+                <h2 class="font-heading font-bold text-3xl sm:text-5xl text-white">
+                    MORE ABOUT <span class="text-pink pink-glow-text">ANA</span>
+                </h2>
+                <div class="w-20 h-1 bg-pink mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 reveal-on-scroll">
+                
+                <div class="bg-navy-card/80 border border-pink/20 rounded-3xl p-6 space-y-2 hover:border-pink/60 transition-colors">
+                    <span class="font-pixel text-[10px] text-pink block uppercase">MY BIGGEST STRENGTH</span>
+                    <p class="text-white font-medium text-sm leading-relaxed">
+                        Adaptability & creative problem solving.
+                    </p>
+                </div>
+
+                <div class="bg-navy-card/80 border border-pink/20 rounded-3xl p-6 space-y-2 hover:border-pink/60 transition-colors">
+                    <span class="font-pixel text-[10px] text-pink block uppercase">TRYING TO IMPROVE</span>
+                    <p class="text-white font-medium text-sm leading-relaxed">
+                        Turning random ideas into structured projects.
+                    </p>
+                </div>
+
+                <div class="bg-navy-card/80 border border-pink/20 rounded-3xl p-6 space-y-2 hover:border-pink/60 transition-colors">
+                    <span class="font-pixel text-[10px] text-pink block uppercase">I WORK BEST WHEN</span>
+                    <p class="text-white font-medium text-sm leading-relaxed">
+                        I have freedom to experiment and create.
+                    </p>
+                </div>
+
+                <div class="bg-navy-card/80 border border-pink/20 rounded-3xl p-6 space-y-2 hover:border-pink/60 transition-colors">
+                    <span class="font-pixel text-[10px] text-pink block uppercase">I GET EXCITED WHEN</span>
+                    <p class="text-white font-medium text-sm leading-relaxed">
+                        A complicated problem finally has a simple solution.
+                    </p>
+                </div>
+
+                <div class="bg-navy-card/80 border border-pink/20 rounded-3xl p-6 space-y-2 hover:border-pink/60 transition-colors">
+                    <span class="font-pixel text-[10px] text-pink block uppercase">MY CREATIVE STYLE</span>
+                    <p class="text-white font-medium text-sm leading-relaxed">
+                        Bold, colorful, experimental, and slightly chaotic — in a good way.
+                    </p>
+                </div>
+
+                <div class="bg-navy-card/80 border border-pink/20 rounded-3xl p-6 space-y-2 hover:border-pink/60 transition-colors">
+                    <span class="font-pixel text-[10px] text-pink block uppercase">MY MOTTO</span>
+                    <p class="text-white font-medium text-sm leading-relaxed italic">
+                        "If there's a problem, there's probably a way to solve it."
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <section id="contact" class="py-20 px-4 relative">
+        <div class="max-w-4xl mx-auto space-y-12 text-center">
+            
+            <div class="space-y-3 reveal-on-scroll">
+                <h2 class="font-heading font-bold text-3xl sm:text-5xl text-white">
+                    LET'S CONNECT! <span class="text-pink">♡</span>
+                </h2>
+                <p class="text-grey font-mono text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
+                    Find me somewhere on the internet.<br>
+                    I'm probably making something, breaking something, or figuring out how to fix it.
+                </p>
+                <div class="w-20 h-1 bg-pink mx-auto rounded-full mt-2"></div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-left reveal-on-scroll">
+                
+                <a href="https://www.instagram.com/nclavly/" target="_blank" rel="noopener noreferrer" class="bg-navy-card border border-pink/30 rounded-2xl p-5 hover:border-pink hover:scale-105 transition-all duration-300 block group shadow-lg">
+                    <div class="flex items-center justify-between mb-3">
+                        <i class="fa-brands fa-instagram text-2xl text-pink group-hover:scale-110 transition-transform"></i>
+                        <span class="text-xs font-mono text-pink">LINK ↗</span>
+                    </div>
+                    <p class="text-xs font-mono text-grey">Instagram</p>
+                    <p class="text-sm font-bold text-white group-hover:text-pink transition-colors">@nclavly</p>
+                </a>
+
+                <div class="bg-navy-card border border-pink/30 rounded-2xl p-5 hover:border-pink transition-all duration-300 block group shadow-lg">
+                    <div class="flex items-center justify-between mb-3">
+                        <i class="fa-brands fa-tiktok text-2xl text-pink group-hover:scale-110 transition-transform"></i>
+                        <span class="text-[10px] font-mono text-grey bg-navy-dark px-1.5 py-0.5 rounded">PROFILE</span>
+                    </div>
+                    <p class="text-xs font-mono text-grey">TikTok</p>
+                    <p class="text-sm font-bold text-white group-hover:text-pink transition-colors">@naa404.wav</p>
+                </div>
+
+                <a href="https://github.com/claveyn" target="_blank" rel="noopener noreferrer" class="bg-navy-card border border-pink/30 rounded-2xl p-5 hover:border-pink hover:scale-105 transition-all duration-300 block group shadow-lg">
+                    <div class="flex items-center justify-between mb-3">
+                        <i class="fa-brands fa-github text-2xl text-pink group-hover:scale-110 transition-transform"></i>
+                        <span class="text-xs font-mono text-pink">LINK ↗</span>
+                    </div>
+                    <p class="text-xs font-mono text-grey">GitHub</p>
+                    <p class="text-sm font-bold text-white group-hover:text-pink transition-colors">@claveyn</p>
+                </a>
+
+                <a href="mailto:hanahibatullah4@gmail.com" class="bg-navy-card border border-pink/30 rounded-2xl p-5 hover:border-pink hover:scale-105 transition-all duration-300 block group shadow-lg">
+                    <div class="flex items-center justify-between mb-3">
+                        <i class="fa-solid fa-envelope text-2xl text-pink group-hover:scale-110 transition-transform"></i>
+                        <span class="text-xs font-mono text-pink">EMAIL ↗</span>
+                    </div>
+                    <p class="text-xs font-mono text-grey">Mail</p>
+                    <p class="text-xs font-bold text-white group-hover:text-pink transition-colors truncate">hanahibatullah4</p>
+                </a>
+
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="py-8 px-4 border-t border-pink/20 bg-navy-dark/90 text-center font-mono text-xs text-grey space-y-3">
+        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-pink animate-pulse"></span>
+                <span class="text-pink font-bold">ANA.CLAVELYN</span>
+            </div>
+            
+            <p>Made with ♡, pixels, and too many ideas.</p>
+
+            <div class="text-[10px] text-pink bg-pink/15 px-3 py-1 rounded-full border border-pink/30">
+                ANA.OS — SYSTEM ONLINE
+            </div>
+        </div>
+        <p class="text-[10px] text-grey-dark pt-2">© 2026 Ana Clavelyn. All rights reserved.</p>
+    </footer>
+
+
+    <!-- SECRET PROFILE EASTER EGG MODAL -->
+    <div id="secret-profile-modal" class="fixed inset-0 z-[150] bg-navy-dark/95 backdrop-blur-xl hidden flex items-center justify-center p-4 opacity-0 transition-opacity duration-300" onclick="closeSecretProfile()">
+        <div class="relative max-w-md w-full bg-navy-card border-2 border-pink rounded-3xl p-6 shadow-[0_0_50px_rgba(255,111,174,0.5)] overflow-hidden" onclick="event.stopPropagation()">
+            <div class="id-scan-line"></div>
+
+            <div class="window-bar rounded-t-xl px-3 py-1.5 flex items-center justify-between text-xs font-mono text-white -mx-6 -mt-6 mb-5">
+                <span class="font-bold flex items-center gap-1.5 text-pink"><i class="fa-solid fa-user-secret"></i> SECRET PROFILE FOUND</span>
+                <button onclick="closeSecretProfile()" class="hover:text-pink font-bold">✕</button>
+            </div>
+
+            <div class="space-y-4 font-mono text-center">
+                <div class="inline-block bg-pink/20 text-pink border border-pink/40 px-3 py-1 rounded-full text-xs animate-pulse">
+                    ACCESS GRANTED ♡
+                </div>
+
+                <div class="bg-navy-dark/90 p-4 rounded-2xl border border-pink/30 space-y-2 text-left text-xs">
+                    <p class="text-pink font-bold border-b border-pink/20 pb-1">STUDENT IDENTITY DECRYPTED:</p>
+                    <p class="text-white"><span class="text-pink">NAME:</span> Ana Clavelyn</p>
+                    <p class="text-white"><span class="text-pink">AGE:</span> 14</p>
+                    <p class="text-white"><span class="text-pink">CLASS:</span> X-7</p>
+                    <p class="text-white"><span class="text-pink">SCHOOL:</span> SMAN Darmaraja</p>
+                    <p class="text-white"><span class="text-pink">STATUS:</span> STUDENT / CREATOR</p>
+                </div>
+
+                <p class="font-handwritten text-xl text-pink-soft italic">
+                    "YOU REALLY WENT DIGGING, HUH? ♡"
+                </p>
+
+                <button onclick="closeSecretProfile()" class="w-full py-2.5 bg-pink hover:bg-pink-soft text-navy-dark font-pixel text-xs rounded-xl transition-all shadow-md cursor-pointer">
+                    [ CLOSE ]
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TERMINAL MODAL -->
+    <div id="terminal-modal" class="fixed inset-0 z-[120] bg-navy-dark/90 backdrop-blur-md hidden flex items-center justify-center p-4 opacity-0 transition-opacity duration-300" onclick="closeTerminalModal()">
+        <div class="relative max-w-2xl w-full bg-navy-card border-2 border-pink rounded-2xl shadow-2xl overflow-hidden" onclick="event.stopPropagation()">
+            <div class="window-bar px-4 py-2 flex items-center justify-between text-xs font-mono text-white">
+                <span class="flex items-center gap-2 font-bold"><i class="fa-solid fa-terminal"></i> ANA.EXE — INTERACTIVE TERMINAL</span>
+                <button onclick="closeTerminalModal()" class="hover:text-pink font-bold text-sm">✕</button>
+            </div>
+            
+            <div class="p-4 font-mono text-xs space-y-3 h-80 overflow-y-auto bg-navy-dark/90" id="terminal-output">
+                <p class="text-pink">System initialized. Welcome to ANA.EXE Terminal!</p>
+                <p class="text-grey">Type <span class="text-white font-bold">'help'</span> to see available commands or click quick actions below.</p>
+            </div>
+
+            <div class="p-3 bg-navy-light/60 border-t border-pink/20 flex flex-wrap gap-2 text-[10px] font-mono">
+                <button onclick="runTerminalCmd('about')" class="bg-navy-card text-pink px-2.5 py-1 rounded border border-pink/30 hover:bg-pink hover:text-navy-dark">about</button>
+                <button onclick="runTerminalCmd('skills')" class="bg-navy-card text-pink px-2.5 py-1 rounded border border-pink/30 hover:bg-pink hover:text-navy-dark">skills</button>
+                <button onclick="runTerminalCmd('projects')" class="bg-navy-card text-pink px-2.5 py-1 rounded border border-pink/30 hover:bg-pink hover:text-navy-dark">projects</button>
+                <button onclick="runTerminalCmd('secret')" class="bg-navy-card text-pink px-2.5 py-1 rounded border border-pink/30 hover:bg-pink hover:text-navy-dark">secret</button>
+                <button onclick="runTerminalCmd('clear')" class="bg-navy-card text-grey px-2.5 py-1 rounded border border-grey/30 hover:text-white">clear</button>
+            </div>
+
+            <form onsubmit="handleTerminalSubmit(event)" class="p-3 bg-navy-dark border-t border-pink/30 flex items-center gap-2">
+                <span class="text-pink font-mono text-xs font-bold">ana@os:~$</span>
+                <input type="text" id="terminal-input" autocomplete="off" placeholder="Type a command..." class="w-full bg-transparent text-white font-mono text-xs focus:outline-none">
+            </form>
+        </div>
+    </div>
+
+    <!-- CERTIFICATE LIGHTBOX MODAL -->
+    <div id="lightbox-modal" class="fixed inset-0 z-[200] bg-navy-dark/95 backdrop-blur-xl hidden flex items-center justify-center p-4 opacity-0 transition-opacity duration-300" onclick="closeLightbox()">
+        <div class="relative max-w-4xl w-full max-h-[90vh] flex flex-col items-center" onclick="event.stopPropagation()">
+            <button onclick="closeLightbox()" class="absolute -top-10 right-0 text-pink hover:text-white font-mono text-sm bg-navy-card px-3 py-1 rounded-full border border-pink/40">
+                ✕ CLOSE (ESC)
+            </button>
+            <img id="lightbox-img" src="" alt="Certificate Full Preview" class="max-h-[80vh] max-w-full object-contain rounded-2xl border-2 border-pink shadow-2xl">
+        </div>
+    </div>
+
+    <script>
+        // Preloader automatic progress & fallback hide logic
+        window.addEventListener('DOMContentLoaded', () => {
+            let progress = 0;
+            const loaderBar = document.getElementById('loader-bar');
+            const loaderPercent = document.getElementById('loader-percent');
+            const preloader = document.getElementById('preloader');
+
+            const interval = setInterval(() => {
+                progress += 15;
+                if (progress > 100) progress = 100;
+                
+                if (loaderBar) loaderBar.style.width = progress + '%';
+                if (loaderPercent) loaderPercent.textContent = progress + '%';
+
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        if (preloader) {
+                            preloader.style.opacity = '0';
+                            setTimeout(() => {
+                                preloader.style.display = 'none';
+                            }, 500);
+                        }
+                    }, 200);
+                }
+            }, 60);
+
+            // Safety fallback timer to prevent preloader sticking
+            setTimeout(() => {
+                if (preloader && preloader.style.display !== 'none') {
+                    preloader.style.opacity = '0';
+                    setTimeout(() => preloader.style.display = 'none', 300);
+                }
+            }, 1800);
+        });
+
+        // Dynamic Subtitle Typing Effect
+        const typedTextSpan = document.getElementById('typed-subtitle');
+        const textArray = [
+            "Front-End Web Enthusiast",
+            "Digital Content Creator",
+            "Creative Problem Solver"
+        ];
+        let textArrayIndex = 0;
+        let charIndex = 0;
+
+        function typeText() {
+            if (!typedTextSpan) return;
+            if (charIndex < textArray[textArrayIndex].length) {
+                typedTextSpan.textContent += textArray[textArrayIndex].charAt(charIndex);
+                charIndex++;
+                setTimeout(typeText, 70);
+            } else {
+                setTimeout(eraseText, 2000);
+            }
+        }
+
+        function eraseText() {
+            if (!typedTextSpan) return;
+            if (charIndex > 0) {
+                typedTextSpan.textContent = textArray[textArrayIndex].substring(0, charIndex - 1);
+                charIndex--;
+                setTimeout(eraseText, 35);
+            } else {
+                textArrayIndex = (textArrayIndex + 1) % textArray.length;
+                setTimeout(typeText, 400);
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            if (typedTextSpan) setTimeout(typeText, 600);
+        });
+
+        // Scroll Reveal Animation Observer
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal-on-scroll').forEach(el => {
+            revealObserver.observe(el);
+        });
+
+        // Mobile Menu Navigation Toggle
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (menuBtn && mobileMenu) {
+            menuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            document.querySelectorAll('.mobile-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+        }
+
+        // Project Category Filter Handler
+        function filterProjects(category) {
+            const cards = document.querySelectorAll('.project-card');
+            const buttons = document.querySelectorAll('.filter-btn');
+            
+            buttons.forEach(btn => {
+                if (btn.dataset.category === category) {
+                    btn.classList.add('bg-pink', 'text-navy-dark', 'font-bold');
+                    btn.classList.remove('bg-navy-card', 'text-grey');
+                } else {
+                    btn.classList.remove('bg-pink', 'text-navy-dark', 'font-bold');
+                    btn.classList.add('bg-navy-card', 'text-grey');
+                }
+            });
+
+            cards.forEach(card => {
+                if (category === 'ALL' || card.dataset.category.includes(category)) {
+                    card.classList.remove('is-hidden');
+                } else {
+                    card.classList.add('is-hidden');
+                }
+            });
+        }
+
+        // Secret Profile Easter Egg Logic
+        let anaBadgeClicks = 0;
+        
+        function handleAnaBadgeClick() {
+            anaBadgeClicks++;
+            if (anaBadgeClicks === 1) {
+                triggerToast('HINT: CLICK 2 MORE TIMES 🔒');
+            } else if (anaBadgeClicks === 2) {
+                triggerToast('ONE MORE CLICK! 🌸');
+            } else if (anaBadgeClicks >= 3) {
+                anaBadgeClicks = 0;
+                openSecretProfile();
+            }
+        }
+
+        function openSecretProfile() {
+            const modal = document.getElementById('secret-profile-modal');
+            if (modal) {
+                modal.classList.remove('hidden');
+                setTimeout(() => modal.classList.remove('opacity-0'), 20);
+                triggerToast('SECRET PROFILE UNLOCKED! ✨');
+            }
+        }
+
+        function closeSecretProfile() {
+            const modal = document.getElementById('secret-profile-modal');
+            if (modal) {
+                modal.classList.add('opacity-0');
+                setTimeout(() => modal.classList.add('hidden'), 300);
+            }
+        }
+
+        // Certificate Lightbox Preview Modal
+        function openLightbox(imgUrl) {
+            const modal = document.getElementById('lightbox-modal');
+            const modalImg = document.getElementById('lightbox-img');
+            if (modal && modalImg) {
+                modalImg.src = imgUrl;
+                modal.classList.remove('hidden');
+                setTimeout(() => modal.classList.remove('opacity-0'), 20);
+            }
+        }
+
+        function closeLightbox() {
+            const modal = document.getElementById('lightbox-modal');
+            if (modal) {
+                modal.classList.add('opacity-0');
+                setTimeout(() => modal.classList.add('hidden'), 300);
+            }
+        }
+
+        // Global ESC Key Close Handler
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeLightbox();
+                closeSecretProfile();
+                closeTerminalModal();
+            }
+        });
+
+        // Now Playing Music Player Toggle (Tak Seiman by Mahen - Official Spotify Link)
+        let isMusicPlaying = false;
+        let audioCtx = null;
+        let melodyInterval = null;
+        const spotifyTrackUrl = "https://open.spotify.com/intl-id/track/0X4Gu4i1wgf6UBaZW4SU9t?si=bab91a785eff4601";
+
+        function togglePlayMusic() {
+            const playIcon = document.getElementById('play-icon');
+            const playText = document.getElementById('play-btn-text');
+            const vinylDisc = document.getElementById('vinyl-disc');
+            const bars = document.querySelectorAll('#equalizer-bars span');
+
+            if (!isMusicPlaying) {
+                isMusicPlaying = true;
+                if (playIcon) playIcon.className = 'fa-solid fa-pause';
+                if (playText) playText.textContent = 'PAUSE';
+                if (vinylDisc) vinylDisc.classList.add('animate-spin-slow');
+
+                bars.forEach(bar => bar.classList.add('animate-equalizer'));
+
+                window.open(spotifyTrackUrl, '_blank');
+
+                try {
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                    const notes = [261.63, 293.66, 329.63, 349.23, 392.00, 440.00];
+                    let step = 0;
+                    
+                    melodyInterval = setInterval(() => {
+                        if (!isMusicPlaying || !audioCtx) return;
+                        const osc = audioCtx.createOscillator();
+                        const gain = audioCtx.createGain();
+                        osc.type = 'sine';
+                        osc.frequency.setValueAtTime(notes[step % notes.length], audioCtx.currentTime);
+                        gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+                        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
+                        osc.connect(gain);
+                        gain.connect(audioCtx.destination);
+                        osc.start();
+                        osc.stop(audioCtx.currentTime + 0.3);
+                        step++;
+                    }, 400);
+                } catch(e) {}
+
+                triggerToast("Playing: Tak Seiman - Mahen 🎵");
+            } else {
+                isMusicPlaying = false;
+                if (playIcon) playIcon.className = 'fa-solid fa-play';
+                if (playText) playText.textContent = 'PLAY SONG';
+                if (vinylDisc) vinylDisc.classList.remove('animate-spin-slow');
+                bars.forEach(bar => bar.classList.remove('animate-equalizer'));
+                if (melodyInterval) clearInterval(melodyInterval);
+                if (audioCtx) audioCtx.close();
+            }
+        }
+
+        // Random Thoughts Spinner
+        const randomThoughts = [
+            '"Why make it normal when I can make it weird?"',
+            '"Ideas first. Sleep later."',
+            '"Sometimes the bug IS the feature."',
+            '"If it works, don\'t touch it. If it doesn\'t, add more CSS."',
+            '"Brainstorming at 2 AM hits different."',
+            '"One pixel at a time, every idea matters."'
+        ];
+        let lastThoughtIdx = 0;
+
+        function spinRandomThought() {
+            const thoughtElement = document.getElementById('thought-text');
+            if (!thoughtElement) return;
+            let nextIdx = Math.floor(Math.random() * randomThoughts.length);
+            while (nextIdx === lastThoughtIdx) {
+                nextIdx = Math.floor(Math.random() * randomThoughts.length);
+            }
+            lastThoughtIdx = nextIdx;
+            thoughtElement.style.opacity = '0';
+            setTimeout(() => {
+                thoughtElement.textContent = randomThoughts[nextIdx];
+                thoughtElement.style.opacity = '1';
+            }, 200);
+        }
+
+        // Toast Messages Trigger
+        const secretMessages = [
+            "YOU FOUND ME! 🌸",
+            "ANA.EXE IS STILL RUNNING",
+            "CREATIVITY: 99%",
+            "STILL AWAKE? ☕",
+            "IDEAS LOADING...",
+            "ERROR 404: BORING PORTFOLIO NOT FOUND",
+            "CSS SURVIVED."
+        ];
+        let eggIndex = 0;
+
+        function triggerEasterEgg() {
+            triggerToast(secretMessages[eggIndex]);
+            eggIndex = (eggIndex + 1) % secretMessages.length;
+        }
+
+        function triggerToast(text) {
+            const toast = document.getElementById('secret-toast');
+            if (toast) {
+                toast.textContent = text;
+                toast.classList.remove('hidden');
+            }
+        }
+
+        // Interactive Terminal Modal
+        function openTerminalModal() {
+            const modal = document.getElementById('terminal-modal');
+            if (modal) {
+                modal.classList.remove('hidden');
+                setTimeout(() => modal.classList.remove('opacity-0'), 20);
+            }
+        }
+
+        function closeTerminalModal() {
+            const modal = document.getElementById('terminal-modal');
+            if (modal) {
+                modal.classList.add('opacity-0');
+                setTimeout(() => modal.classList.add('hidden'), 300);
+            }
+        }
+
+        function runTerminalCmd(cmd) {
+            const output = document.getElementById('terminal-output');
+            if (!output) return;
+            
+            const line = document.createElement('p');
+            line.className = 'text-white font-bold mt-2';
+            line.textContent = `ana@os:~$ ${cmd}`;
+            output.appendChild(line);
+
+            const res = document.createElement('p');
+            res.className = 'text-pink';
+
+            if (cmd === 'about') {
+                res.textContent = "Ana Clavelyn — Front-End Web Enthusiast & Digital Content Creator.";
+            } else if (cmd === 'secret' || cmd === 'profile' || cmd === 'age' || cmd === 'class') {
+                openSecretProfile();
+                res.textContent = "✨ Secret Profile system unlocked! Displaying secret modal...";
+            } else if (cmd === 'skills') {
+                res.textContent = "Skills: HTML, CSS, Basic JavaScript, Basic Python, Video Editing, Social Media Mgmt.";
+            } else if (cmd === 'projects') {
+                res.textContent = "Projects: Kawai Web, Pixel Lab Game, Web 011, Pinkkiii.";
+            } else if (cmd === 'clear') {
+                output.innerHTML = '<p class="text-pink">Terminal cleared. Ready for input!</p>';
+                return;
+            } else {
+                res.textContent = `Command not recognized: '${cmd}'. Type 'help', 'about', or 'secret' for commands.`;
+            }
+            output.appendChild(res);
+            output.scrollTop = output.scrollHeight;
+        }
+
+        function handleTerminalSubmit(e) {
+            e.preventDefault();
+            const input = document.getElementById('terminal-input');
+            if (!input) return;
+            const cmd = input.value.trim().toLowerCase();
+            if (cmd) runTerminalCmd(cmd);
+            input.value = '';
+        }
+
+        // Custom Cursor movement logic
+        const cursor = document.getElementById('custom-cursor');
+        if (cursor) {
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%)`;
+            });
+        }
+    </script>
+</body>
+</html>
